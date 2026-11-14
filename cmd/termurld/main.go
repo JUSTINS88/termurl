@@ -50,10 +50,16 @@ func Serve() {
 		log.Fatal("Failed Connect to Database:", err)
 	}
 
+	// Port Config
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
 	// App Config
 	app := &Application{
 		config: config{
-			port: "8080",
+			port: port,
 			database: dbConfig{
 				url:         dbURL,
 				maxIdleTime: 5 * time.Minute,
