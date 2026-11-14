@@ -5,8 +5,8 @@
 
 # Binaries & build artifacts
 bin/
-termurl
-termurld
+/termurl
+/termurld
 cmd/termurl/termurl
 cmd/termurld/termurld
 *.exe
