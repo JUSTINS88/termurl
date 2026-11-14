@@ -45,3 +45,18 @@ docker compose -f deploy/docker-compose.yml up --build
   }
   ```
 - `GET /{slug}` — Redirect to the original URL
+
+## Benchmark (Local)
+
+Tested locally against PostgreSQL using [`hey`](https://github.com/rakyll/hey):
+
+```bash
+hey -n 1000 -c 50 -disable-redirects http://localhost:8080/<slug>
+```
+
+| Metric | Result |
+| --- | --- |
+| Throughput | ~2,210 req/s |
+| Median Latency (p50) | 2.0 ms |
+| p95 Latency | 78.0 ms |
+| Status | 1000/1000 (`302 Found`, 0 errors) |
