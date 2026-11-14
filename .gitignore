@@ -1,0 +1,25 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Binaries & build artifacts
+bin/
+termurl
+termurld
+cmd/termurl/termurl
+cmd/termurld/termurld
+*.exe
+*.out
+*.test
+coverage.out
+
+# Database & logs
+*.db
+*.log
+
+# IDE & OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
