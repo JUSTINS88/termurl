@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>termurl — shorten links from your terminal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --bg: #0c0c0c;
@@ -305,147 +308,156 @@
             .shorten-box {
                 flex-direction: column;
             }
+
             .features {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
+
 <body>
-<div class="container">
-    <header>
-        <div class="brand">termurl<span>.dev</span></div>
-        <nav>
-            <a href="https://github.com/JUSTINS88/termurl" target="_blank">github</a>
-            <a href="https://justinsep.me" target="_blank">blog</a>
-        </nav>
-    </header>
+    <div class="container">
+        <header>
+            <div class="brand">termurl<span>.dev</span></div>
+            <nav>
+                <a href="https://github.com/JUSTINS88/termurl" target="_blank">github</a>
+                <a href="https://justinsep.me/blog" target="_blank">blog</a>
+            </nav>
+        </header>
 
-    <main>
-        <h1>Shorten links without leaving your terminal.</h1>
-        <p class="subtitle">
-            Try it instantly below, or install the CLI to shorten URLs straight from your shell. No accounts, no tracking bloat.
-        </p>
+        <main>
+            <h1>Shorten links without leaving your terminal.</h1>
+            <p class="subtitle">
+                Try it instantly below, or install the CLI to shorten URLs straight from your shell. No accounts, no
+                tracking bloat.
+            </p>
 
-        <form class="shorten-box" id="webForm">
-            <input type="url" name="url" placeholder="https://example.com/very-long-path" required />
-            <input type="text" name="slug" placeholder="slug (optional)" />
-            <button type="submit" class="submit" id="submitBtn">shorten</button>
-        </form>
-        <div class="result-row" id="result"></div>
+            <form class="shorten-box" id="webForm">
+                <input type="url" name="url" placeholder="https://example.com/very-long-path" required />
+                <input type="text" name="slug" placeholder="slug (optional)" />
+                <button type="submit" class="submit" id="submitBtn">shorten</button>
+            </form>
+            <div class="result-row" id="result"></div>
 
-        <hr class="divider" />
+            <hr class="divider" />
 
-        <div class="cli-header">
-            <h2>Use from your CLI</h2>
-            <p>Install the binary once and shorten links directly from your terminal workflow.</p>
-        </div>
-
-        <div class="section-title">01 / Install</div>
-        <div class="terminal">
-            <div class="terminal-header">
-                <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-                <button class="copy-btn" onclick="copyText('go install github.com/JUSTINS88/termurl@latest', this)">copy</button>
+            <div class="cli-header">
+                <h2>Use from your CLI</h2>
+                <p>Install the binary once and shorten links directly from your terminal workflow.</p>
             </div>
-            <div class="terminal-body">
-                <div class="line"><span class="prompt">$</span>go install github.com/JUSTINS88/termurl@latest</div>
-            </div>
-        </div>
 
-        <div class="section-title">02 / Usage</div>
-        <div class="terminal">
-            <div class="terminal-header">
-                <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-                <span>zsh</span>
+            <div class="section-title">01 / Install</div>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                    <button class="copy-btn"
+                        onclick="copyText('go install github.com/JUSTINS88/termurl/cmd/termurl@latest', this)">copy</button>
+                </div>
+                <div class="terminal-body">
+                    <div class="line"><span class="prompt">$</span>go install
+                        github.com/JUSTINS88/termurl/cmd/termurl@latest</div>
+                </div>
             </div>
-            <div class="terminal-body">
-                <div class="line"><span class="prompt">$</span>termurl https://github.com/JUSTINS88/termurl <span class="flag">-s</span> repo</div>
-                <div class="line output">→ <a href="#">https://termurl.dev/repo</a></div>
-                <br />
-                <div class="line"><span class="prompt">$</span>termurl https://justinsep.me</div>
-                <div class="line output">→ <a href="#">https://termurl.dev/x8k2p</a></div>
-            </div>
-        </div>
 
-        <div class="features">
-            <div class="feature">
-                <h3>Zero-Friction Auth</h3>
-                <p>Generates a local <code>~/.termurl.json</code> machine key automatically on first CLI run.</p>
+            <div class="section-title">02 / Usage</div>
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+                    <span>zsh</span>
+                </div>
+                <div class="terminal-body">
+                    <div class="line"><span class="prompt">$</span>termurl https://github.com/JUSTINS88/termurl <span
+                            class="flag">-s</span> repo</div>
+                    <div class="line output">→ <a href="#">https://termurl.dev/repo</a></div>
+                    <br />
+                    <div class="line"><span class="prompt">$</span>termurl https://justinsep.me</div>
+                    <div class="line output">→ <a href="#">https://termurl.dev/x8k2p</a></div>
+                </div>
             </div>
-            <div class="feature">
-                <h3>Custom &amp; Random Slugs</h3>
-                <p>Pass <code>-s</code> / <code>--slug</code> for readable aliases or let the server generate a short hash.</p>
-            </div>
-            <div class="feature">
-                <h3>Single Binary</h3>
-                <p>Bundles both the CLI client and the <code>serve</code> HTTP daemon in one Go binary.</p>
-            </div>
-            <div class="feature">
-                <h3>PostgreSQL Backed</h3>
-                <p>Built on Go <code>net/http</code>, <code>sqlc</code>, and PostgreSQL for sub-millisecond lookups.</p>
-            </div>
-        </div>
-    </main>
 
-    <footer>
-        <span>v1.0.0</span>
-        <span>built by <a href="https://justinsep.me" target="_blank">Justin Sepvian</a></span>
-    </footer>
-</div>
+            <div class="features">
+                <div class="feature">
+                    <h3>Zero-Friction Auth</h3>
+                    <p>Generates a local <code>~/.termurl.json</code> machine key automatically on first CLI run.</p>
+                </div>
+                <div class="feature">
+                    <h3>Custom &amp; Random Slugs</h3>
+                    <p>Pass <code>-s</code> / <code>--slug</code> for readable aliases or let the server generate a
+                        short hash.</p>
+                </div>
+                <div class="feature">
+                    <h3>Single Binary</h3>
+                    <p>Bundles both the CLI client and the <code>serve</code> HTTP daemon in one Go binary.</p>
+                </div>
+                <div class="feature">
+                    <h3>PostgreSQL Backed</h3>
+                    <p>Built on Go <code>net/http</code>, <code>sqlc</code>, and PostgreSQL for sub-millisecond lookups.
+                    </p>
+                </div>
+            </div>
+        </main>
 
-<script>
-    function copyText(text, btn) {
-        navigator.clipboard.writeText(text);
-        const original = btn.textContent;
-        btn.textContent = 'copied';
-        setTimeout(() => btn.textContent = original, 1500);
-    }
+        <footer>
+            <span>v1.0.0</span>
+            <span>built by <a href="https://justinsep.me" target="_blank">Justin Sepvian</a></span>
+        </footer>
+    </div>
 
-    function generateWebKey() {
-        if (window.crypto && crypto.randomUUID) {
-            return `web-${crypto.randomUUID()}`;
+    <script>
+        function copyText(text, btn) {
+            navigator.clipboard.writeText(text);
+            const original = btn.textContent;
+            btn.textContent = 'copied';
+            setTimeout(() => btn.textContent = original, 1500);
         }
-        return `web-${Math.random().toString(36).slice(2)}-${Date.now()}`;
-    }
 
-    document.getElementById('webForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const resBox = document.getElementById('result');
-        const submitBtn = document.getElementById('submitBtn');
-        const form = e.target;
+        function generateWebKey() {
+            if (window.crypto && crypto.randomUUID) {
+                return `web-${crypto.randomUUID()}`;
+            }
+            return `web-${Math.random().toString(36).slice(2)}-${Date.now()}`;
+        }
 
-        submitBtn.disabled = true;
-        resBox.style.color = '#888888';
-        resBox.innerHTML = '<span>creating...</span>';
+        document.getElementById('webForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const resBox = document.getElementById('result');
+            const submitBtn = document.getElementById('submitBtn');
+            const form = e.target;
 
-        try {
-            const res = await fetch('/api/links', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    original_link: form.url.value.trim(),
-                    slug: form.slug.value.trim(),
-                    machine_key: generateWebKey()
-                })
-            });
+            submitBtn.disabled = true;
+            resBox.style.color = '#888888';
+            resBox.innerHTML = '<span>creating...</span>';
 
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error || 'Failed to shorten');
-            if (!data.short_url) throw new Error('Invalid server response');
+            try {
+                const res = await fetch('/api/links', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        original_link: form.url.value.trim(),
+                        slug: form.slug.value.trim(),
+                        machine_key: generateWebKey()
+                    })
+                });
 
-            const shortUrl = data.short_url;
-            resBox.innerHTML = `
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Failed to shorten');
+                if (!data.short_url) throw new Error('Invalid server response');
+
+                const shortUrl = data.short_url;
+                resBox.innerHTML = `
           <span style="color:#4ade80">✓ <a href="${shortUrl}" target="_blank" style="color:#ededed;text-underline-offset:3px;">${shortUrl}</a></span>
           <button type="button" class="copy-btn" onclick="copyText('${shortUrl}', this)">copy link</button>
         `;
-            form.reset();
-        } catch (err) {
-            resBox.style.color = '#f87171';
-            resBox.innerHTML = `<span>✗ ${err.message}</span>`;
-        } finally {
-            submitBtn.disabled = false;
-        }
-    });
-</script>
+                form.reset();
+            } catch (err) {
+                resBox.style.color = '#f87171';
+                resBox.innerHTML = `<span>✗ ${err.message}</span>`;
+            } finally {
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
 </body>
+
 </html>
