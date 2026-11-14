@@ -26,7 +26,8 @@ func sendLinkToCreateLink(originalLink, slug string) error {
 		MachineKey:   machineKey,
 	})
 
-	res, err := http.Post("http://localhost:8080/api/links", "application/json", bytes.NewBuffer(link))
+	apiURL := "https://s.justinsep.me/api/links"
+	res, err := http.Post(apiURL, "application/json", bytes.NewBuffer(link))
 	if err != nil {
 		return fmt.Errorf("Failed Connect to server")
 	}
