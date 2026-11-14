@@ -2,11 +2,19 @@
 
 A minimal URL shortener built with Go, PostgreSQL, and `sqlc` — usable from both the terminal (CLI) and a lightweight embedded web UI.
 
+Live demo: [s.justinsep.me](https://s.justinsep.me)
+
 ## Features
 - Shorten URLs with custom or auto-generated 6-character slugs
+- Thread-safe in-memory redirect cache (`sync.RWMutex`)
 - CLI client with automatic local machine key (`~/.termurl.json`)
 - Embedded web UI (`go:embed`) bundled inside a single server binary
 - PostgreSQL persistence with `sqlc` type-safe queries
+
+## Install CLI
+```bash
+go install github.com/JUSTINS88/termurl/cmd/termurl@latest
+```
 
 ## Project Structure
 - `cmd/termurld` — HTTP server (`POST /api/links`, `GET /{slug}`, `GET /`)
@@ -54,9 +62,9 @@ Tested locally against PostgreSQL using [`hey`](https://github.com/rakyll/hey):
 hey -n 1000 -c 50 -disable-redirects http://localhost:8080/<slug>
 ```
 
-| Metric | Result |
-| --- | --- |
-| Throughput | ~2,210 req/s |
-| Median Latency (p50) | 2.0 ms |
-| p95 Latency | 78.0 ms |
-| Status | 1000/1000 (`302 Found`, 0 errors) |
+| Metric | Before Cache (DB) | After Cache (`sync.RWMutex`) |
+| --- | --- | --- |
+| Throughput | ~2,210 req/s | **~9,110 req/s** |
+| Median Latency (p50) | 2.0 ms | **1.3 ms** |
+| p95 Latency | 78.0 ms | **22.1 ms** |
+| Status | 1000/1000 (`302 Found`, 0 errors) | 1000/1000 (`302 Found`, 0 errors) |
