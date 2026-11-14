@@ -29,6 +29,7 @@ type Application struct {
 	config config
 	logger *slog.Logger
 	db     *store.Queries
+	cache  *LinkCache
 }
 
 func main() {
@@ -67,6 +68,7 @@ func Serve() {
 		},
 		logger: slog.New(slog.NewTextHandler(os.Stdout, nil)),
 		db:     store.New(dbConn),
+		cache:  NewLinkCache(),
 	}
 
 	srv := &http.Server{
