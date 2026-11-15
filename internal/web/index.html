@@ -321,6 +321,7 @@
         <header>
             <div class="brand">termurl<span>.dev</span></div>
             <nav>
+                <a href="/stats">stats</a>
                 <a href="https://github.com/JUSTINS88/termurl" target="_blank">github</a>
                 <a href="https://justinsep.me/blog" target="_blank">blog</a>
             </nav>
@@ -445,9 +446,13 @@
                 if (!data.short_url) throw new Error('Invalid server response');
 
                 const shortUrl = data.short_url;
+                const createdSlug = new URL(shortUrl).pathname.replace(/^\/+/, '');
                 resBox.innerHTML = `
           <span style="color:#4ade80">✓ <a href="${shortUrl}" target="_blank" style="color:#ededed;text-underline-offset:3px;">${shortUrl}</a></span>
-          <button type="button" class="copy-btn" onclick="copyText('${shortUrl}', this)">copy link</button>
+          <span style="display:flex;gap:0.4rem;">
+            <a href="/stats?slug=${encodeURIComponent(createdSlug)}" class="copy-btn" style="text-decoration:none;">stats</a>
+            <button type="button" class="copy-btn" onclick="copyText('${shortUrl}', this)">copy link</button>
+          </span>
         `;
                 form.reset();
             } catch (err) {
