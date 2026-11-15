@@ -3,11 +3,13 @@ package main
 import (
 	"crypto/rand"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"math/big"
 	"net/http"
 
 	"github.com/JUSTINS88/termurl/internal/store"
+	"github.com/lib/pq"
 )
 
 const slugCharset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -33,7 +35,7 @@ func (app *Application) CreateNewLink(w http.ResponseWriter, r *http.Request) {
 
 	machineKey, err := app.db.CheckMachineKey(r.Context(), createLink.MachineKey)
 	if err != nil {
-		RespondWithError(w, http.StatusInternalServerError, "Machine Key not found")
+		RespondWithError(w, http.StatusInternalServerError, "Failed to verify machine key")
 		return
 	}
 
@@ -53,6 +55,11 @@ func (app *Application) CreateNewLink(w http.ResponseWriter, r *http.Request) {
 		createLink.Slug = randomSlug
 	}
 
+	if createLink.Slug == "stats" || createLink.Slug == "api" {
+		RespondWithError(w, http.StatusConflict, "You cannot use this slug")
+		return
+	}
+
 	// Insert into database
 	createLinkRes, err := app.db.CreateNewLink(r.Context(), store.CreateNewLinkParams{
 		OriginalLink: createLink.OriginalLink,
@@ -60,6 +67,12 @@ func (app *Application) CreateNewLink(w http.ResponseWriter, r *http.Request) {
 		MachineKey:   machineKey,
 	})
 	if err != nil {
+		var pqErr *pq.Error
+		if errors.As(err, &pqErr) && pqErr.Code == "23505" {
+			RespondWithError(w, http.StatusConflict, "Slug already taken")
+			return
+		}
+		app.logger.Error("failed to create new link", "error", err)
 		RespondWithError(w, http.StatusInternalServerError, "Create Link failed.")
 		return
 	}

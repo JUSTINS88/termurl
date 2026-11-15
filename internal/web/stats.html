@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Link Stats — termurl</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0c0c0c;
+            --surface: #141414;
+            --border: #242424;
+            --text: #ededed;
+            --muted: #888888;
+            --accent: #38bdf8;
+            --green: #4ade80;
+            --red: #f87171;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            padding: 4rem 1.5rem;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .brand {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+            font-size: 1rem;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .brand span {
+            color: var(--muted);
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        nav a:hover {
+            color: var(--text);
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 0.92rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        input {
+            flex: 1;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            padding: 0.7rem 0.9rem;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #525252;
+        }
+
+        button.submit {
+            background-color: var(--text);
+            color: var(--bg);
+            border: none;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.825rem;
+            font-weight: 500;
+            padding: 0.7rem 1.1rem;
+            cursor: pointer;
+        }
+
+        button.submit:hover {
+            opacity: 0.88;
+        }
+
+        .status-msg {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.825rem;
+            color: var(--muted);
+            margin-bottom: 1rem;
+        }
+
+        .stats-card {
+            display: none;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+
+        .stats-card.visible {
+            display: block;
+        }
+
+        .stat-views {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.25rem;
+            font-weight: 600;
+            color: var(--green);
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin-bottom: 1.25rem;
+        }
+
+        .meta-row {
+            border-top: 1px solid var(--border);
+            padding-top: 0.9rem;
+            margin-top: 0.9rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+        }
+
+        .meta-row .key {
+            color: var(--muted);
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .meta-row a {
+            color: var(--accent);
+            word-break: break-all;
+            text-decoration: none;
+        }
+
+        .meta-row a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="/" class="brand">termurl<span>.dev</span></a>
+            <nav>
+                <a href="/">← back to shortener</a>
+            </nav>
+        </header>
+
+        <main>
+            <h1>Link Views &amp; Stats</h1>
+            <p class="subtitle">Enter a slug to check how many times it has been clicked.</p>
+
+            <form class="search-box" id="statsForm">
+                <input type="text" name="slug" id="slugInput" placeholder="e.g. repo" required />
+                <button type="submit" class="submit" id="checkBtn">check</button>
+            </form>
+
+            <div class="status-msg" id="statusMsg"></div>
+
+            <div class="stats-card" id="statsCard">
+                <div class="stat-views" id="clicksValue">0</div>
+                <div class="stat-label">total views</div>
+
+                <div class="meta-row">
+                    <span class="key">slug</span>
+                    <span id="slugValue"></span>
+                </div>
+                <div class="meta-row">
+                    <span class="key">original url</span>
+                    <a id="originalLinkValue" href="#" target="_blank" rel="noopener"></a>
+                </div>
+                <div class="meta-row">
+                    <span class="key">created at</span>
+                    <span id="createdAtValue"></span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        async function loadStats(slug) {
+            const statusMsg = document.getElementById('statusMsg');
+            const statsCard = document.getElementById('statsCard');
+            const checkBtn = document.getElementById('checkBtn');
+
+            checkBtn.disabled = true;
+            statusMsg.style.color = '#888888';
+            statusMsg.textContent = 'loading...';
+            statsCard.classList.remove('visible');
+
+            try {
+                const res = await fetch(`/api/links/${encodeURIComponent(slug)}/stats`);
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Slug not found');
+
+                document.getElementById('clicksValue').textContent = data.clicks ?? 0;
+                document.getElementById('slugValue').textContent = `/${data.slug}`;
+                const linkEl = document.getElementById('originalLinkValue');
+                linkEl.href = data.original_link;
+                linkEl.textContent = data.original_link;
+                document.getElementById('createdAtValue').textContent = data.created_at
+                    ? new Date(data.created_at).toLocaleString()
+                    : '-';
+
+                statusMsg.textContent = '';
+                statsCard.classList.add('visible');
+            } catch (err) {
+                statusMsg.style.color = '#f87171';
+                statusMsg.textContent = `✗ ${err.message}`;
+            } finally {
+                checkBtn.disabled = false;
+            }
+        }
+
+        document.getElementById('statsForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const slug = document.getElementById('slugInput').value.trim().replace(/^\/+/, '');
+            if (slug) loadStats(slug);
+        });
+
+        const params = new URLSearchParams(window.location.search);
+        const initialSlug = params.get('slug');
+        if (initialSlug) {
+            document.getElementById('slugInput').value = initialSlug;
+            loadStats(initialSlug);
+        }
+    </script>
+</body>
+</html>
+
