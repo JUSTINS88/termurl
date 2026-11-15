@@ -7,12 +7,15 @@ import (
 	"fmt"
 	"math/big"
 	"net/http"
+	"regexp"
 
 	"github.com/JUSTINS88/termurl/internal/store"
 	"github.com/lib/pq"
 )
 
 const slugCharset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+
+var validSlug = regexp.MustCompile(`^[a-zA-Z0-9_-]{1,50}$`)
 
 type CreateLinkParams struct {
 	OriginalLink string `json:"original_link"`
@@ -57,6 +60,12 @@ func (app *Application) CreateNewLink(w http.ResponseWriter, r *http.Request) {
 
 	if createLink.Slug == "stats" || createLink.Slug == "api" {
 		RespondWithError(w, http.StatusConflict, "You cannot use this slug")
+		return
+	}
+
+	// Check is slug char is valid
+	if !validSlug.MatchString(createLink.Slug) {
+		RespondWithError(w, http.StatusBadRequest, "Slug can only contain letters, numbers, '-' and '_' and within 1-50 characters")
 		return
 	}
 
