@@ -45,6 +45,9 @@ func Serve() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	dbConn.SetMaxOpenConns(25)
+	dbConn.SetMaxIdleConns(25)
+	dbConn.SetConnMaxLifetime(5 * time.Minute)
 	defer dbConn.Close()
 
 	if err := dbConn.Ping(); err != nil {
