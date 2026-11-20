@@ -20,5 +20,11 @@ func (app *Application) Routes() http.Handler {
 	mux.HandleFunc("GET /api/links/{slug}/stats", app.GetLinksStats)
 	mux.HandleFunc("GET /{slug}", app.GetTermurlLink)
 
-	return mux
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Host == "s.justinsep.me" {
+			http.Redirect(w, r, "https://zaps.my.id"+r.URL.RequestURI(), http.StatusMovedPermanently)
+			return
+		}
+		mux.ServeHTTP(w, r)
+	})
 }
