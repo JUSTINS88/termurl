@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"regexp"
 
-	"github.com/JUSTINS88/termurl/internal/store"
+	"github.com/JUSTINS88/zaps/internal/store"
 	"github.com/lib/pq"
 )
 

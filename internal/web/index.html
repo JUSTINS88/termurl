@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>termurl — shorten links from your terminal</title>
+    <title>zaps — shorten links from your terminal</title>
+    <link rel="icon" href="/zaps-mark.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -49,9 +50,12 @@
         }
 
         .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
             font-family: 'JetBrains Mono', monospace;
             font-weight: 500;
-            font-size: 1rem;
+            font-size: 1.1rem;
             letter-spacing: -0.02em;
         }
 
@@ -319,10 +323,15 @@
 <body>
     <div class="container">
         <header>
-            <div class="brand">termurl<span>.dev</span></div>
+            <div class="brand">
+                <svg width="38" height="22" viewBox="24 48 192 104" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M76.4 146H74A46 46 0 0 1 74 54H154.6L106.6 134H166A34 34 0 0 0 166 66H156.4L163.6 54H166A46 46 0 0 1 166 146H85.4L133.4 66H74A34 34 0 0 0 74 134H83.6Z" fill="currentColor" />
+                </svg>
+                zaps
+            </div>
             <nav>
                 <a href="/stats">stats</a>
-                <a href="https://github.com/JUSTINS88/termurl" target="_blank">github</a>
+                <a href="https://github.com/JUSTINS88/zaps" target="_blank">github</a>
                 <a href="https://justinsep.me/blog" target="_blank">blog</a>
             </nav>
         </header>
@@ -353,11 +362,10 @@
                 <div class="terminal-header">
                     <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
                     <button class="copy-btn"
-                        onclick="copyText('go install github.com/JUSTINS88/termurl/cmd/termurl@latest', this)">copy</button>
+                        onclick="copyText('go install github.com/JUSTINS88/zaps/cmd/zaps@latest', this)">copy</button>
                 </div>
                 <div class="terminal-body">
-                    <div class="line"><span class="prompt">$</span>go install
-                        github.com/JUSTINS88/termurl/cmd/termurl@latest</div>
+                    <div class="line"><span class="prompt">$</span>go install github.com/JUSTINS88/zaps/cmd/zaps@latest</div>
                 </div>
             </div>
 
@@ -368,19 +376,19 @@
                     <span>zsh</span>
                 </div>
                 <div class="terminal-body">
-                    <div class="line"><span class="prompt">$</span>termurl https://github.com/JUSTINS88/termurl <span
+                    <div class="line"><span class="prompt">$</span>zaps https://github.com/JUSTINS88/zaps <span
                             class="flag">-s</span> repo</div>
-                    <div class="line output">→ <a href="#">https://termurl.dev/repo</a></div>
+                    <div class="line output">→ <a href="#">https://s.justinsep.me/repo</a></div>
                     <br />
-                    <div class="line"><span class="prompt">$</span>termurl https://justinsep.me</div>
-                    <div class="line output">→ <a href="#">https://termurl.dev/x8k2p</a></div>
+                    <div class="line"><span class="prompt">$</span>zaps https://justinsep.me</div>
+                    <div class="line output">→ <a href="#">https://s.justinsep.me/x8k2p</a></div>
                 </div>
             </div>
 
             <div class="features">
                 <div class="feature">
                     <h3>Zero-Friction Auth</h3>
-                    <p>Generates a local <code>~/.termurl.json</code> machine key automatically on first CLI run.</p>
+                    <p>Generates a local <code>~/.zaps.json</code> machine key automatically on first CLI run.</p>
                 </div>
                 <div class="feature">
                     <h3>Custom &amp; Random Slugs</h3>

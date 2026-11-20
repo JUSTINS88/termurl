@@ -26,7 +26,7 @@ func sendLinkToCreateLink(originalLink, slug string) error {
 		MachineKey:   machineKey,
 	})
 
-	apiURL := "https://s.justinsep.me/api/links"
+	apiURL := "https://zaps.my.id/api/links"
 	res, err := http.Post(apiURL, "application/json", bytes.NewBuffer(link))
 	if err != nil {
 		return fmt.Errorf("Failed Connect to server")
@@ -59,7 +59,7 @@ func sendLinkToCreateLink(originalLink, slug string) error {
 
 func GetMachineKey() (string, error) {
 	home, _ := os.UserHomeDir()
-	path := filepath.Join(home, ".termurl.json")
+	path := filepath.Join(home, ".zaps.json")
 
 	// Get Machine Key
 	if data, err := os.ReadFile(path); err == nil {

@@ -17,7 +17,7 @@ func main() {
 }
 
 func run(ctx context.Context) error {
-	fmt.Printf("Welcome To TermURL. This version is %s\n", version)
+	fmt.Printf("Welcome To ZAPS. This version is %s\n", version)
 
 	slug := pflag.StringP("slug", "s", "", "Custom slug for your shorten link")
 	pflag.Parse()
