@@ -1,4 +1,4 @@
-module github.com/JUSTINS88/termurl
+module github.com/JUSTINS88/zaps
 
 go 1.27.3
 

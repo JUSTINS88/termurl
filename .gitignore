@@ -5,10 +5,10 @@
 
 # Binaries & build artifacts
 bin/
-/termurl
-/termurld
-cmd/termurl/termurl
-cmd/termurld/termurld
+/zaps
+/zapsd
+cmd/zaps/zaps
+cmd/zapsd/zapsd
 *.exe
 *.out
 *.test

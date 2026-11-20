@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Link Stats — termurl</title>
+    <title>Link Stats — zaps</title>
+    <link rel="icon" href="/zaps-mark.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -47,9 +48,12 @@
         }
 
         .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
             font-family: 'JetBrains Mono', monospace;
             font-weight: 500;
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: var(--text);
             text-decoration: none;
         }
@@ -183,7 +187,12 @@
 <body>
     <div class="container">
         <header>
-            <a href="/" class="brand">termurl<span>.dev</span></a>
+            <a href="/" class="brand">
+                <svg width="38" height="22" viewBox="24 48 192 104" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M76.4 146H74A46 46 0 0 1 74 54H154.6L106.6 134H166A34 34 0 0 0 166 66H156.4L163.6 54H166A46 46 0 0 1 166 146H85.4L133.4 66H74A34 34 0 0 0 74 134H83.6Z" fill="currentColor" />
+                </svg>
+                zaps
+            </a>
             <nav>
                 <a href="/">← back to shortener</a>
             </nav>

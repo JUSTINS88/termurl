@@ -25,5 +25,5 @@ jobs:
 
       - name: Build server & CLI
         run: |
-          go build -o /dev/null ./cmd/termurld
-          go build -o /dev/null ./cmd/termurl
+          go build -o /dev/null ./cmd/zapsd
+          go build -o /dev/null ./cmd/zaps

@@ -8,7 +8,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/JUSTINS88/termurl/internal/store"
+	"github.com/JUSTINS88/zaps/internal/store"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
