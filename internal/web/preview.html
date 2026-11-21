@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Preview /{{.Slug}} — zaps</title>
+    <link rel="icon" href="/zaps-mark.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0c0c0c;
+            --surface: #141414;
+            --border: #242424;
+            --text: #ededed;
+            --muted: #888888;
+            --accent: #38bdf8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 520px;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 2rem;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+            font-size: 1rem;
+            color: var(--text);
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+
+        h1 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 0.875rem;
+            line-height: 1.55;
+            margin-bottom: 1.25rem;
+        }
+
+        .dest-box {
+            background-color: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.85rem 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.825rem;
+            color: var(--accent);
+            word-break: break-all;
+            margin-bottom: 1.5rem;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        a.btn-primary {
+            display: inline-block;
+            background-color: var(--text);
+            color: var(--bg);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.825rem;
+            font-weight: 500;
+            padding: 0.7rem 1.1rem;
+            border-radius: 6px;
+            transition: opacity 0.15s ease;
+        }
+
+        a.btn-primary:hover {
+            opacity: 0.88;
+        }
+
+        a.btn-secondary {
+            display: inline-block;
+            background-color: transparent;
+            color: var(--muted);
+            border: 1px solid var(--border);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.825rem;
+            padding: 0.7rem 1rem;
+            border-radius: 6px;
+            transition: color 0.15s ease, border-color 0.15s ease;
+        }
+
+        a.btn-secondary:hover {
+            color: var(--text);
+            border-color: #444;
+        }
+    </style>
+</head>
+<body>
+    <main class="card">
+        <a href="/" class="brand">
+            <svg width="32" height="18" viewBox="24 48 192 104" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M76.4 146H74A46 46 0 0 1 74 54H154.6L106.6 134H166A34 34 0 0 0 166 66H156.4L163.6 54H166A46 46 0 0 1 166 146H85.4L133.4 66H74A34 34 0 0 0 74 134H83.6Z" fill="currentColor" />
+            </svg>
+            zaps
+        </a>
+
+        <div class="label">link preview · /{{.Slug}}</div>
+        <h1>You are leaving zaps.my.id</h1>
+        <p class="subtitle">Check the destination URL below before continuing to make sure you trust it.</p>
+
+        <div class="dest-box">{{.OriginalLink}}</div>
+
+        <div class="actions">
+            <a href="{{.OriginalLink}}" class="btn-primary" rel="noopener noreferrer">continue to link →</a>
+            <a href="/" class="btn-secondary">← back</a>
+        </div>
+    </main>
+</body>
+</html>
+
