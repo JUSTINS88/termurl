@@ -91,8 +91,15 @@
         /* Quick Web Shortener Form */
         .shorten-box {
             display: flex;
-            gap: 0.5rem;
+            flex-direction: column;
+            gap: 0.6rem;
             margin-bottom: 0.75rem;
+        }
+
+        .slug-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         input {
@@ -112,7 +119,23 @@
         }
 
         input[name="url"] {
-            flex: 2;
+            width: 100%;
+        }
+
+        .slug-group {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .slug-prefix {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text);
+            white-space: nowrap;
+            user-select: none;
         }
 
         input[name="slug"] {
@@ -121,14 +144,15 @@
         }
 
         button.submit {
+            width: 100%;
             background-color: var(--text);
             color: var(--bg);
             border: none;
             border-radius: 6px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.825rem;
+            font-size: 0.85rem;
             font-weight: 500;
-            padding: 0.7rem 1.1rem;
+            padding: 0.75rem 1.1rem;
             cursor: pointer;
             transition: opacity 0.15s ease;
         }
@@ -309,8 +333,9 @@
         }
 
         @media (max-width: 540px) {
-            .shorten-box {
+            .slug-row {
                 flex-direction: column;
+                align-items: stretch;
             }
 
             .features {
@@ -324,8 +349,11 @@
     <div class="container">
         <header>
             <div class="brand">
-                <svg width="38" height="22" viewBox="24 48 192 104" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M76.4 146H74A46 46 0 0 1 74 54H154.6L106.6 134H166A34 34 0 0 0 166 66H156.4L163.6 54H166A46 46 0 0 1 166 146H85.4L133.4 66H74A34 34 0 0 0 74 134H83.6Z" fill="currentColor" />
+                <svg width="38" height="22" viewBox="24 48 192 104" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true">
+                    <path
+                        d="M76.4 146H74A46 46 0 0 1 74 54H154.6L106.6 134H166A34 34 0 0 0 166 66H156.4L163.6 54H166A46 46 0 0 1 166 146H85.4L133.4 66H74A34 34 0 0 0 74 134H83.6Z"
+                        fill="currentColor" />
                 </svg>
                 zaps
             </div>
@@ -345,8 +373,11 @@
 
             <form class="shorten-box" id="webForm">
                 <input type="url" name="url" placeholder="https://example.com/very-long-path" required />
-                <input type="text" name="slug" placeholder="slug (optional)" />
-                <button type="submit" class="submit" id="submitBtn">shorten</button>
+                <div class="slug-group">
+                    <span class="slug-prefix">zaps.my.id/</span>
+                    <input type="text" name="slug" placeholder="custom (optional)" />
+                </div>
+                <button type="submit" class="submit" id="submitBtn">zaps</button>
             </form>
             <div class="result-row" id="result"></div>
 
@@ -365,7 +396,8 @@
                         onclick="copyText('go install github.com/JUSTINS88/zaps/cmd/zaps@latest', this)">copy</button>
                 </div>
                 <div class="terminal-body">
-                    <div class="line"><span class="prompt">$</span>go install github.com/JUSTINS88/zaps/cmd/zaps@latest</div>
+                    <div class="line"><span class="prompt">$</span>go install github.com/JUSTINS88/zaps/cmd/zaps@latest
+                    </div>
                 </div>
             </div>
 
@@ -378,10 +410,10 @@
                 <div class="terminal-body">
                     <div class="line"><span class="prompt">$</span>zaps https://github.com/JUSTINS88/zaps <span
                             class="flag">-s</span> repo</div>
-                    <div class="line output">→ <a href="#">https://s.justinsep.me/repo</a></div>
+                    <div class="line output">→ <a href="#">https://zaps.my.id/repo</a></div>
                     <br />
                     <div class="line"><span class="prompt">$</span>zaps https://justinsep.me</div>
-                    <div class="line output">→ <a href="#">https://s.justinsep.me/x8k2p</a></div>
+                    <div class="line output">→ <a href="#">https://zaps.my.id/qGYKmP</a></div>
                 </div>
             </div>
 
