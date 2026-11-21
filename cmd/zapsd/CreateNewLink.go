@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"math/big"
 	"net/http"
+	"net/url"
 	"regexp"
 
 	"github.com/JUSTINS88/zaps/internal/store"
@@ -30,6 +31,28 @@ func (app *Application) CreateNewLink(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Checking if original link exist
+	if createLink.OriginalLink == "" {
+		RespondWithError(w, http.StatusBadRequest, "Original link is required")
+		return
+	}
+
+	u, err := url.ParseRequestURI(createLink.OriginalLink)
+	if err != nil {
+		RespondWithError(w, http.StatusBadRequest, "Invalid Link")
+		return
+	}
+
+	if u.Scheme != "http" && u.Scheme != "https" {
+		RespondWithError(w, http.StatusBadRequest, "Invalid Link")
+		return
+	}
+
+	if u.Host == "" || u.Host == "zaps.my.id" || u.Host == r.Host {
+		RespondWithError(w, http.StatusBadRequest, "Invalid Link")
+		return
+	}
+
 	// Machine Key is valid or not
 	if createLink.MachineKey == "" {
 		RespondWithError(w, http.StatusBadRequest, "Machine key is missing")
@@ -39,12 +62,6 @@ func (app *Application) CreateNewLink(w http.ResponseWriter, r *http.Request) {
 	machineKey, err := app.db.CheckMachineKey(r.Context(), createLink.MachineKey)
 	if err != nil {
 		RespondWithError(w, http.StatusInternalServerError, "Failed to verify machine key")
-		return
-	}
-
-	// Checking if original link exist
-	if createLink.OriginalLink == "" {
-		RespondWithError(w, http.StatusBadRequest, "Original link is required")
 		return
 	}
 
