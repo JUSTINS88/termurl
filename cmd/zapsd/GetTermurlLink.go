@@ -15,7 +15,7 @@ func (app *Application) GetTermurlLink(w http.ResponseWriter, r *http.Request) {
 	// Check in cache
 	if originalLink, ok := app.cache.Get(slug); ok {
 		go app.trackClicks(slug)
-		http.Redirect(w, r, originalLink, http.StatusFound)
+		RespondWithPreview(w, slug, originalLink)
 		return
 	}
 
@@ -34,7 +34,7 @@ func (app *Application) GetTermurlLink(w http.ResponseWriter, r *http.Request) {
 	go app.trackClicks(slug)
 	// Set cache after found in DB
 	app.cache.Set(slug, originalLink)
-	http.Redirect(w, r, originalLink, http.StatusFound)
+	RespondWithPreview(w, slug, originalLink)
 }
 
 func (app *Application) increaseClick(ctx context.Context, slug string) error {
